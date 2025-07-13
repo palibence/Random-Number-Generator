@@ -1,0 +1,53 @@
+import { Button, LineEdit, CheckBox } from "std-widgets.slint";
+export component AppWindow inherits Window {
+
+    in property <int> number: 0;
+    callback generate(string, string);
+
+    width: 450px;
+    height: 450px;
+    title: "Random Number Generator";
+
+    GridLayout {
+        padding: 50px;
+        spacing: 25px;
+        Row {
+            Text {
+                text: "Random Number Generator";
+                horizontal-alignment: center;
+                font-size: 24px;
+                font-weight: 900;
+            }
+        }
+        Row {
+            Rectangle {
+                Text {
+                    text: root.number;
+                    height: 100px;
+                    font-size: 50px;
+                    font-weight: 500;
+                }
+            }
+        }
+        Row {
+            min := LineEdit {
+                placeholder-text: "Min";
+            }
+        }
+        Row {
+            max := LineEdit {
+                placeholder-text: "Max";
+            }
+        }
+        Row {
+            Button {
+                text: "generate";
+                primary: true;
+                height: 35px;
+                clicked => {
+                    generate(min.text, max.text);
+                }
+            }
+        }
+    }
+}

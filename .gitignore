@@ -1,0 +1,7 @@
+/target/
+
+/.jj/
+/.hg/
+/.pijul/
+
+**/*.rs.bk

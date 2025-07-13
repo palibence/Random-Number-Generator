@@ -1,0 +1,12 @@
+[package]
+name = "Random-Number-Generator"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+slint = "1.8.0"
+rand = "0.9"
+
+[build-dependencies]
+slint-build = "1.8.0"
+winresource = "0.1"
