@@ -1,7 +1,7 @@
 import { Button, LineEdit, CheckBox } from "std-widgets.slint";
 export component AppWindow inherits Window {
 
-    in property <int> number: 0;
+    in property <string> output: "0";
     callback generate(string, string);
 
     width: 450px;
@@ -22,7 +22,8 @@ export component AppWindow inherits Window {
         Row {
             Rectangle {
                 Text {
-                    text: root.number;
+                    text: root.output;
+                    horizontal-alignment: center;
                     height: 100px;
                     font-size: 50px;
                     font-weight: 500;

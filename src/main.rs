@@ -12,13 +12,34 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     ui.on_generate({
         move |min: slint::SharedString, max: slint::SharedString| {
-            let minimum: u32 = min.trim().parse().unwrap();
-            let maximum: u32 = max.trim().parse().unwrap();
+            let minimum: u32 = match min.trim().parse() {
+                Ok(val) => val,
+                Err(_) => {
+                    if let Some(strong_ui) = ui_handle.upgrade() {
+                        strong_ui.set_output("Invalid min".into());
+                    }
+                    return;
+                }
+            };
+            let maximum: u32 = match max.trim().parse() {
+                Ok(val) => val,
+                Err(_) => {
+                    if let Some(strong_ui) = ui_handle.upgrade() {
+                        strong_ui.set_output("Invalid max".into());
+                    }
+                    return;
+                }
+            };
+            if minimum >= maximum {
+                if let Some(strong_ui) = ui_handle.upgrade() {
+                    strong_ui.set_output("Min > Max".into());
+                }
+                return;
+            }
             let mut rng = rand::rng();
             let num: u32 = rng.random_range(minimum..maximum);
-
             if let Some(strong_ui) = ui_handle.upgrade() {
-                strong_ui.set_number(num as i32);
+                strong_ui.set_output(num.to_string().into());
             }
         }
     });
